@@ -24,7 +24,7 @@ Transform your coding breaks into epic battles! VSCode Battle Arena brings an en
 ## How to Use
 
 1. Open VS Code
-2. Click the Battle Arena icon in the Activity Bar
+2. Select the Battle Arena dropdown in the Explorer tab
 3. Select your preferred characters from the dropdown menus
 4. Watch the epic battle unfold!
 
