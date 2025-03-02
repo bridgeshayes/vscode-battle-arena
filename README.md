@@ -40,13 +40,10 @@ None at this time. Please report any issues you encounter on our GitHub reposito
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.3
 
-Initial release of VSCode Battle Arena:
-- Three unique characters with distinct animations
-- Dynamic battle system with proximity-based combat
-- Character selection interface
-- Pixelated retro art style
+Bug Fixes
+- Characters no longer glitch when switching
 
 ---
 

@@ -4,7 +4,7 @@
   "description": "VSCode Battle Arena - A VS Code extension that brings epic battles to your coding environment!",
   "publisher": "bridgeshayes",
   "icon": "media/battle-arena-logo.png",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.97.0"
   },
