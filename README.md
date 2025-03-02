@@ -25,8 +25,7 @@ Transform your coding breaks into epic battles! VSCode Battle Arena brings an en
 
 1. Open VS Code
 2. Select the Battle Arena dropdown in the Explorer tab
-3. Select your preferred characters from the dropdown menus
-4. Watch the epic battle unfold!
+3. Watch the epic battle unfold!
 
 Characters will move around naturally and engage in combat when they get within range. Each fight has a cooldown period to ensure varied and interesting battles.
 
@@ -40,10 +39,9 @@ None at this time. Please report any issues you encounter on our GitHub reposito
 
 ## Release Notes
 
-### 0.0.3
+### 0.0.4
 
-Bug Fixes
-- Characters no longer glitch when switching
+- Removed character selection for the time being
 
 ---
 

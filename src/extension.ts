@@ -243,25 +243,6 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 			</style>
 		</head>
 		<body>
-			<div class="character-select">
-				<div class="select-container">
-					<label for="character1">Left Character</label>
-					<select id="character1">
-						<option value="Knight">Knight</option>
-						<option value="Rogue">Rogue</option>
-						<option value="Mage">Mage</option>
-					</select>
-				</div>
-				<div class="select-container">
-					<label for="character2">Right Character</label>
-					<select id="character2">
-						<option value="Rogue">Rogue</option>
-						<option value="Knight">Knight</option>
-						<option value="Mage">Mage</option>
-					</select>
-				</div>
-				<button class="start-button" id="startButton">Start Battle</button>
-			</div>
 			<div class="battle-container">
 				<div class="pixel-overlay"></div>
 				<div class="grid-pattern"></div>
@@ -463,11 +444,9 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 
 					// Small delay to ensure cleanup is complete
 					setTimeout(() => {
-						const char1Type = document.getElementById('character1').value;
-						const char2Type = document.getElementById('character2').value;
-
-						const fighter1 = new Character('fighter1', characterData[char1Type], 20);
-						const fighter2 = new Character('fighter2', characterData[char2Type], 60);
+						// Fixed characters: Knight and Mage
+						const fighter1 = new Character('fighter1', characterData['Knight'], 20);
+						const fighter2 = new Character('fighter2', characterData['Mage'], 60);
 
 						let updateFrame;
 						let lastFightTime = 0;
@@ -563,10 +542,8 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 					}, 50); // Small delay to ensure clean state
 				}
 
-				document.getElementById('startButton').addEventListener('click', startBattle);
-				
-				// Start initial battle
-				startBattle();
+				// Start battle immediately when the page loads
+				window.addEventListener('load', startBattle);
 			</script>
 		</body>
 		</html>`;
@@ -584,3 +561,25 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
+
+
+
+// <div class="character-select">
+// 				<div class="select-container">
+// 					<label for="character1">Left Character</label>
+// 					<select id="character1">
+// 						<option value="Knight">Knight</option>
+// 						<option value="Rogue">Rogue</option>
+// 						<option value="Mage">Mage</option>
+// 					</select>
+// 				</div>
+// 				<div class="select-container">
+// 					<label for="character2">Right Character</label>
+// 					<select id="character2">
+// 						<option value="Rogue">Rogue</option>
+// 						<option value="Knight">Knight</option>
+// 						<option value="Mage">Mage</option>
+// 					</select>
+// 				</div>
+// 				<button class="start-button" id="startButton">Start Battle</button>
+// 			</div>
