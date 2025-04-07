@@ -72,13 +72,19 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 			}
 		};
 
+		// First, we need to create a URI for the arena background
+		const arenaBackground = webview.asWebviewUri(vscode.Uri.file(
+			path.join(this._extensionUri.fsPath, 'media', 'PNG', 'background', 'arena.webp')
+		));
+
 		return `<!DOCTYPE html>
 		<html lang="en">
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data: https:; style-src 'unsafe-inline'; script-src 'nonce-${nonce}';">
+			<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data: https:; style-src 'unsafe-inline' https:; script-src 'nonce-${nonce}' https:; connect-src https:;">
 			<title>Battle Arena</title>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.css">
 			<style>
 				body {
 					margin: 0;
@@ -93,24 +99,8 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 					height: 100%;
 					position: relative;
 					image-rendering: pixelated;
-					background: #1e1e1e;
-				}
-				.pixel-overlay {
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					height: 35%;
-					background-image: 
-						repeating-linear-gradient(
-							0deg,
-							transparent 0px,
-							transparent 4px,
-							rgba(0,0,0,0.1) 4px,
-							rgba(0,0,0,0.1) 8px
-						);
-					pointer-events: none;
-					image-rendering: pixelated;
+					background: url('${arenaBackground}') no-repeat center center;
+					background-size: cover;
 				}
 				.character {
 					position: absolute;
@@ -142,30 +132,10 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 					left: 0;
 					right: 0;
 					height: 35%;
-					background: 
-						repeating-linear-gradient(
-							90deg,
-							transparent 0px,
-							transparent 16px,
-							rgba(255,255,255,0.05) 16px,
-							rgba(255,255,255,0.05) 32px
-						);
 					image-rendering: pixelated;
 					pointer-events: none;
 				}
-				.grid-pattern {
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					height: 35%;
-					background-size: 8px 8px;
-					background-image: 
-						linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
-						linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
-					image-rendering: pixelated;
-					pointer-events: none;
-				}
+
 				.character-select {
 					position: absolute;
 					top: 10px;
@@ -240,19 +210,35 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 						width: auto;
 					}
 				}
+
+				.character.gu-mirror {
+					position: fixed !important;
+					margin: 0 !important;
+					z-index: 9999 !important;
+					opacity: 0.8;
+					transform: rotate(5deg);
+				}
+
+				.character.gu-transit {
+					opacity: 0.2;
+				}
+
+				.battle-container.drag-active {
+					cursor: grab;
+				}
 			</style>
 		</head>
 		<body>
-			<div class="battle-container">
-				<div class="pixel-overlay"></div>
-				<div class="grid-pattern"></div>
+			<div class="battle-container" id="battleContainer">
 				<div class="character fighter1" id="fighter1">
-					<img id="fighter1Sprite">
+					<img id="fighter1Sprite" src="" alt="Fighter 1">
 				</div>
 				<div class="character fighter2" id="fighter2">
-					<img id="fighter2Sprite">
+					<img id="fighter2Sprite" src="" alt="Fighter 2">
 				</div>
+				<div class="pixel-overlay"></div>
 			</div>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
 			<script nonce="${nonce}">
 				class Character {
 					constructor(id, frames, startPosition) {
@@ -464,6 +450,7 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 							// Clear sprites on cleanup
 							document.getElementById('fighter1Sprite').src = '';
 							document.getElementById('fighter2Sprite').src = '';
+							drake.destroy();
 						}
 
 						function getNewRandomPosition(character) {
@@ -526,6 +513,43 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 							updateFrame = requestAnimationFrame(updateBattle);
 						}
 
+						// Initialize dragula
+						const drake = dragula([document.getElementById('battleContainer')], {
+							moves: function(el, container, handle) {
+								return el.classList.contains('character');
+							},
+							accepts: function(el, target, source, sibling) {
+								return true;
+							},
+							direction: 'horizontal'
+						});
+
+						drake.on('drag', function(el) {
+							document.getElementById('battleContainer').classList.add('drag-active');
+							// Pause the battle animation while dragging
+							if (currentBattle) {
+								currentBattle.pause();
+							}
+						});
+
+						drake.on('dragend', function(el) {
+							document.getElementById('battleContainer').classList.remove('drag-active');
+							// Update character position based on new position
+							const rect = el.getBoundingClientRect();
+							const containerRect = document.getElementById('battleContainer').getBoundingClientRect();
+							const position = ((rect.left - containerRect.left) / containerRect.width) * 100;
+							
+							const character = el.id === 'fighter1' ? fighter1 : fighter2;
+							character.position = Math.max(10, Math.min(90, position));
+							character.targetPosition = character.position;
+							el.style.left = character.position + '%';
+
+							// Resume the battle
+							if (currentBattle) {
+								currentBattle.resume();
+							}
+						});
+
 						cleanup();
 						fighter1.reset();
 						fighter2.reset();
@@ -536,9 +560,28 @@ class BattleArenaViewProvider implements vscode.WebviewViewProvider {
 						fighter1.element.style.left = fighter1.position + '%';
 						fighter2.element.style.left = fighter2.position + '%';
 
-						updateBattle();
+						updateFrame = requestAnimationFrame(updateBattle);
 
-						currentBattle = { cleanup };
+						// Add pause/resume functionality
+						let isPaused = false;
+						let lastRAF = null;
+
+						function pause() {
+							isPaused = true;
+							if (updateFrame) {
+								cancelAnimationFrame(updateFrame);
+								updateFrame = null;
+							}
+						}
+
+						function resume() {
+							if (isPaused) {
+								isPaused = false;
+								updateFrame = requestAnimationFrame(updateBattle);
+							}
+						}
+
+						currentBattle = { cleanup, pause, resume };
 					}, 50); // Small delay to ensure clean state
 				}
 

@@ -23,7 +23,7 @@ Transform your coding breaks into epic battles! VSCode Battle Arena brings an en
 
 ## How to Use
 
-1. Open VS Code
+1. Open VS Code or Cursor
 2. Select the Battle Arena dropdown in the Explorer tab
 3. Watch the epic battle unfold!
 
@@ -32,6 +32,7 @@ Characters will move around naturally and engage in combat when they get within 
 ## Requirements
 
 - VS Code 1.97.0 or higher
+- Cursor 0.47.0 or higher
 
 ## Known Issues
 
@@ -39,9 +40,10 @@ None at this time. Please report any issues you encounter on our GitHub reposito
 
 ## Release Notes
 
-### 0.0.4
+### 1.0.0
 
-- Removed character selection for the time being
+- Added a pixelized background 
+
 
 ---
 

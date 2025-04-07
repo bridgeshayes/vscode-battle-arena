@@ -1,12 +1,13 @@
 {
   "name": "vscode-battle-arena",
-  "displayName": "VSCode Battle Arena",
-  "description": "VSCode Battle Arena - A VS Code extension that brings epic battles to your coding environment!",
+  "displayName": "Battle Arena (VS Code & Cursor)",
+  "description": "Battle Arena - A VS Code and Cursor extension that brings epic battles to your coding environment!",
   "publisher": "bridgeshayes",
   "icon": "media/battle-arena-logo.png",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "engines": {
-    "vscode": "^1.97.0"
+    "vscode": "^1.97.0",
+    "cursor": "^0.47.0"
   },
   "categories": [
     "Other"
