@@ -3,11 +3,16 @@
   "displayName": "Battle Arena (VS Code & Cursor)",
   "description": "Battle Arena - A VS Code and Cursor extension that brings epic battles to your coding environment!",
   "publisher": "bridgeshayes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bridgeshayes/vscode-battle-arena.git"
+  },
+  "license": "MIT",
   "icon": "media/battle-arena-logo.png",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.97.0",
-    "cursor": "^0.47.0"
+    "cursor": "^0.48.7"
   },
   "categories": [
     "Other"

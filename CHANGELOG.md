@@ -2,6 +2,12 @@
 
 All notable changes to the "VSCode Battle Arena" extension will be documented in this file.
 
+## [1.0.1] - 2024-04-08
+
+### Changed 
+  - Updated compatability with Cursor
+  - Updated README.md
+  - Updated Logo
 
 ## [1.0.0] - 2025-04-07
 
@@ -18,10 +24,12 @@ All notable changes to the "VSCode Battle Arena" extension will be documented in
   - Removed character selection UI for stability
   - Battle now starts automatically without requiring user interaction
 
+
 ## [0.0.3] - 2025-03-01
 
 ### Fixed
 - Character switching glitch resolved
+
 
 ## [0.0.2] - 2025-03-01
 
@@ -29,6 +37,7 @@ All notable changes to the "VSCode Battle Arena" extension will be documented in
 - Initial battle system implementation
 - Character selection system
 - Basic movement and combat animations
+
 
 ## [0.0.1] - 2025-03-01
 

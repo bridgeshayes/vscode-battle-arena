@@ -4,35 +4,30 @@ Transform your coding breaks into epic battles! VSCode Battle Arena brings an en
 
 ## Features
 
-- **Character Selection**: Choose from three unique characters:
+- **Characters**: 
   - Knight: A stalwart warrior with powerful melee attacks
   - Rogue: A swift fighter with agile movements
-  - Mage: A mystical combatant with magical abilities
+  - More characters to come!
 
-- **Dynamic Battle System**: Watch your chosen characters:
+- **Dynamic Battle System**: Watch your characters:
   - Move naturally around the arena
   - Engage in combat when they get close
   - Perform strategic retreats after battles
   - Execute fluid attack animations
 
 - **Pixel Art Style**: Enjoy a retro-styled battle arena with:
-  - Pixelated character sprites
+  - Pixelated character sprites and backgrounds
   - Stylized ground effects
   - Smooth animations
   - Clean, minimalist interface
 
 ## How to Use
 
-1. Open VS Code or Cursor
+1. Open VS Code
 2. Select the Battle Arena dropdown in the Explorer tab
 3. Watch the epic battle unfold!
 
 Characters will move around naturally and engage in combat when they get within range. Each fight has a cooldown period to ensure varied and interesting battles.
-
-## Requirements
-
-- VS Code 1.97.0 or higher
-- Cursor 0.47.0 or higher
 
 ## Known Issues
 
@@ -40,10 +35,10 @@ None at this time. Please report any issues you encounter on our GitHub reposito
 
 ## Release Notes
 
-### 1.0.0
+### 1.0.1
 
-- Added a pixelized background 
-
+- Small fixes
+- Logo update
 
 ---
 
