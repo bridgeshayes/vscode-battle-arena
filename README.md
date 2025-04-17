@@ -1,5 +1,8 @@
 # VSCode Battle Arena
 
+![image](https://github.com/user-attachments/assets/c6ab6851-87a4-4785-89d4-d0418abfae2d)
+
+
 Transform your coding breaks into epic battles! VSCode Battle Arena brings an entertaining pixel-art battle simulation right into your VS Code environment.
 
 ## Features
